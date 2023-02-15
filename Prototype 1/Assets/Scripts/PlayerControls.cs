@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,21 @@ using UnityEngine.UIElements;
 
 public class PlayerControls : MonoBehaviour
 {
+    public static PlayerControls Instance;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Start()
     {
         
@@ -32,7 +47,7 @@ public class PlayerControls : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit) && hit.collider.tag == "Wood")
             {
-                SoundWaveMovement.power = 20;
+                SoundWaveMovement.power = 100;
                 Vector3 spawnZone = new Vector3(hit.collider.transform.position.x,
                                                 hit.collider.transform.position.y + 1.5f,
                                                 hit.collider.transform.position.z); //it creates a vector 3 based on the position of the thing it hits 
@@ -42,7 +57,7 @@ public class PlayerControls : MonoBehaviour
             }
             else if (Physics.Raycast(ray, out hit) && hit.collider.tag == "Metal")
             {
-                SoundWaveMovement.power = 60;
+                SoundWaveMovement.power = 300;
                 Vector3 spawnZone = new Vector3(hit.collider.transform.position.x, 
                                                 hit.collider.transform.position.y + 1.5f,
                                                 hit.collider.transform.position.z);
