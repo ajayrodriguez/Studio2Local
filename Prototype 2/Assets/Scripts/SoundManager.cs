@@ -40,25 +40,24 @@ public class SoundManager: MonoBehaviour
             }
         }
 
-        //if the audioCheck int is not 0, then there is at least one audio source playing
-        //so we mute all sound
-        if (audioCheck != 0)
+        for (int i = 0; i < audioSource.Length; i++)
         {
-            for (int i = 0; i < audioSource.Length; i++)
+            
+            //if the audioCheck int is not 0, then there is at least one audio source playing
+            //so we mute all sound
+            if (audioCheck != 0)
             {
                 audioSource[i].mute = true;
             }
-        }
 
-        //if the audioCheck int is 0, then no audio source is playing
-        //so we unmute all sound
-        if (audioCheck == 0)
-        {
-            for (int i = 0; i < audioSource.Length; i++)
+            //if the audioCheck int is 0, then no audio source is playing
+            //so we unmute all sound
+            if (audioCheck == 0)
             {
                 audioSource[i].mute = false;
             }
         }
+
 
     }
     
