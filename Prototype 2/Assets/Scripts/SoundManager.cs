@@ -4,40 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-public class AllSoundControl : MonoBehaviour
+public class SoundManager: MonoBehaviour
 {
-    /*
-    //an array for all game objects holding an audio source
-    public GameObject[] allSoundObjects;
-    
-    //an array of all audio sources
-    private AudioSource eachAudio;
-
-    //instead of using bool, use a integer to check if any sound is playing
-    private int audioCheck = 0;
-
-    void Start()
-    {
-        //get all the sound objects that are under the tag "Sound Object"
-        allSoundObjects = GameObject.FindGameObjectsWithTag("SoundObject");
-        Debug.Log("The number of sound objects is: " + allSoundObjects.Length);
-        
-        //for each sound object, find its audio source and assign it to allAudio array
-        for (int i = 0; i < allSoundObjects.Length; i++)
-        {
-            eachAudio = allSoundObjects[i].GetComponent<AudioSource>();
-            if (eachAudio.mute != true)
-            {
-                audioCheck++;
-                
-            }
-        }
-        Debug.Log(audioCheck);
-        
-    }
-    */
-
+    //an array for all audio source
     private AudioSource[] audioSource;
+    
+    //an integer to check if any audio is playing
+    //it's weird but somehow it worked better than bool
     private int audioCheck = 0;
 
     void Start()
@@ -48,15 +21,17 @@ public class AllSoundControl : MonoBehaviour
 
     void Update()
     {
+        //when space is pressed, use the mute or unmute all function
         if (Input.GetKeyDown(KeyCode.Space))
         {
             MuteUnmuteAll();
-            audioCheck = 0;
+            audioCheck = 0;     //reset audio check to 0
         }
     }
 
     void MuteUnmuteAll()
     {
+        //for the audio source array, if any of the audio is not mute, the audioCheck integer goes up by one
         for (int i = 0; i < audioSource.Length; i++)
         {
             if (audioSource[i].mute == false)
@@ -65,6 +40,8 @@ public class AllSoundControl : MonoBehaviour
             }
         }
 
+        //if the audioCheck int is not 0, then there is at least one audio source playing
+        //so we mute all sound
         if (audioCheck != 0)
         {
             for (int i = 0; i < audioSource.Length; i++)
@@ -73,6 +50,8 @@ public class AllSoundControl : MonoBehaviour
             }
         }
 
+        //if the audioCheck int is 0, then no audio source is playing
+        //so we unmute all sound
         if (audioCheck == 0)
         {
             for (int i = 0; i < audioSource.Length; i++)
