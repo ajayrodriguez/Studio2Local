@@ -6,6 +6,10 @@ public class SoundControlle : MonoBehaviour
 {
     private static Rigidbody rb;
     public static SoundControlle Instance;
+
+    public static float distanceBack = 50;
+
+    public static float distanceForward = 5;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -33,11 +37,19 @@ public class SoundControlle : MonoBehaviour
 
     public static void MoveBack()
     {
-        rb.AddForce(Camera.main.transform.forward * 10);
+        if (rb.transform.position.x < distanceBack || rb.transform.position.z < distanceBack)
+        {
+            rb.AddForce(Camera.main.transform.forward * 10);
+        }
+        
     }
 
     public static void MoveForward()
     {
-        rb.AddForce(-Camera.main.transform.forward * 10);
+        if (rb.transform.position.x > distanceForward || rb.transform.position.z > distanceForward)
+        {
+            rb.AddForce(-Camera.main.transform.forward * 10);
+        }
+        
     }
 }
