@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SoundControlle : MonoBehaviour
 {
     private Rigidbody rb;
-    
+    public Material muted;
+    public Material notMuted;
+   
+    //get the audio source attached to the game object
+    private AudioSource objectAudio;
+    private Renderer color;
     public float distanceBack = 15;
 
     public float distanceForward = 2;
@@ -15,13 +21,28 @@ public class SoundControlle : MonoBehaviour
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>(); //gets rigidbody that exists on this specific instance (The gameobject connected to the script)
+
+        color = gameObject.GetComponent<Renderer>();
         
+        //audio is the audio source attached to the game object
+        objectAudio = gameObject.GetComponent<AudioSource>();
+
     }
+    //Diane's note: I used mute here because we want to keep the audio's tempo to keep all audio playing in sync
 
     // Update is called once per frame
     void Update()
     {
         rb.velocity *= .09f;
+
+        if (objectAudio.mute == false)
+        {
+            color.material = notMuted;
+        }
+        else
+        {
+            color.material = muted;
+        }
     }
 
     public void MoveBack()
@@ -44,5 +65,21 @@ public class SoundControlle : MonoBehaviour
             rb.AddForce(-Camera.main.transform.forward * 10);
         }
         
+    }
+    
+    void OnMouseOver()
+    {
+        //when pressing E and the mouse is over that game object
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (objectAudio.mute)    //unmute if the audio is not playing
+            {
+                objectAudio.mute = false;
+            }
+            else
+            {
+                objectAudio.mute = true;      //mute the audio source if it's not playing
+            }
+        }
     }
 }
