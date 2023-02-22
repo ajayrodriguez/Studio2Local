@@ -6,7 +6,7 @@ public class SoundControlle : MonoBehaviour
 {
     private Rigidbody rb;
     
-    public float distanceBack = 10;
+    public float distanceBack = 15;
 
     public float distanceForward = 2;
     // Start is called before the first frame update
@@ -28,7 +28,7 @@ public class SoundControlle : MonoBehaviour
     {
         if (Mathf.Abs(rb.transform.position.x) < distanceBack || Mathf.Abs(rb.transform.position.z) < distanceBack)
         {
-            rb.AddForce(Camera.main.transform.forward * 10);
+            rb.AddForce(Camera.main.transform.forward * 10); //not working for some reason
         }
         //Mathf.Abs turns the number into an absolute value 
         //this means the distance away from 0. Because the negative doenst matter here, turning it into absolute value
