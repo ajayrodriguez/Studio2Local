@@ -34,7 +34,9 @@ public class PlayerController : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //at mouse position
             if (Physics.Raycast(ray, out hit)) //detects if something is hit that has thecorresponding tag
             {
-                SoundControlle.MoveForward();
+                hit.collider.gameObject.GetComponent<SoundControlle>().MoveForward(); 
+                //when hit hits a collider, it grabs the gameobject of that collider and then grabs the script and then calls the function
+                
                 Debug.Log("working");
             }
         }
@@ -44,7 +46,7 @@ public class PlayerController : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //at mouse position
             if (Physics.Raycast(ray, out hit)) //detects if something is hit that has thecorresponding tag
             {
-                SoundControlle.MoveBack();
+                hit.collider.gameObject.GetComponent<SoundControlle>().MoveBack();
                 Debug.Log("working2");
             }
         }
